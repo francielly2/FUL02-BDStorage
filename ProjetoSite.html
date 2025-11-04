@@ -1,175 +1,118 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site</title>
-        background: rgba(78, 78, 78, 0.075);
-        box-shadow: 0px 0px 10px 0px ;
-        backdrop-filter: blur(10px);
-        position: fixed;
-        z-index: 999;
-        width: 100%;
-        left: 0;
-        top: 0;
-    
-    <style>
-    .H-Content {
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px 7%;
-        display: flex;
-    }
-    
-    /* FONTES */
-    a {
-        font-family: 'Poppins', sans-serif;
-        transition: transform 0.3s ease; 
-        color: rgba(236, 235, 235, 1);
-        text-decoration: none;
-        display: inline-block;
-        font-weight: 600;
-        margin: 0px 30px;
-        font-size: 15px;
-    }
-    
-    a:hover {
-        transform: scale(1.05);
-    }
-    
-    h1 {
-        background: linear-gradient(to left, rgb(44, 44, 44), rgb(255, 255, 255));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        font-family: 'Poppins', sans-serif;
-        line-height: 1.2;
-        font-weight: 600;
-        font-size: 60px;
-        margin: 0px;
-    }
-    
-    p {
-        color: rgb(255, 255, 255);
-        font-family: 'Poppins', sans-serif;
-        font-size: 13px;
-        margin: 0px;
-    }
-    
-    /* PARTE PRETA */
-    #S-Back {
-        background-color: black;
-    }
-    
-    #S-Content {
-        justify-content: space-between;
-        margin: 0px 0px 0px 7%;
-        align-items: center;
-        padding-top: 50px;
-        display: flex;
-    }
-    
-    #SB-Img {
-        width: 60%;
-        text-align: right;
-    }
-    
-    #S-Text {
-        text-align: left;
-    }
-    
-    #S-Btn {
-        background: linear-gradient(to right, rgba(255, 255, 255, 0.26), rgba(95, 95, 95, 0.096));
-        font-family: 'Poppins', sans-serif;
-        transition: transform 0.3s ease; 
-        border-radius: 20px;
-        padding: 10px 25px;
-        margin-top: 15px;
-        cursor: pointer;
-        color: white;
-        border: 0;
-    }
-    
-    #S-Btn:hover {
-        transform: scale(1.05);
-    }
-    
-    /* PARTE PRETA */
-    #P-Back {
-        position: relative; 
-    }
-    
-    #P-Content {
-        position: relative;
-    }
-    
-    #PP-Img {
-        width: 100%; 
-        height: auto; 
-    }
-    
-    #P-Text {
-       color: white;
-        font-family: 'Poppins', sans-serif;
-        transform: translate(-50%, -50%); 
-        position: absolute; 
-        text-align: center; 
-        line-height: 1.2;
-        font-weight: 600;
-        font-size: 60px;
-        z-index: 1; 
-        left: 50%; 
-        top: 50%; 
-    
-        
-    }
-    
-    #P-Btn {
-        background: linear-gradient(to right, rgba(255, 255, 255, 0.26), rgba(95, 95, 95, 0.096));
-        font-family: 'Poppins', sans-serif;
-        transition: transform 0.3s ease; 
-        border-radius: 20px;
-        padding: 10px 25px;
-        margin-top: 15px;
-        cursor: pointer;
-        color: white;
-        border: 0;
-    }
-    
-    #P-Btn2 {
-        background: linear-gradient(to right, rgb(255, 0, 0), rgba(61, 0, 0, 0.514));
-        font-family: 'Poppins', sans-serif;
-        transition: transform 0.3s ease; 
-        border-radius: 20px;
-        padding: 10px 25px;
-        margin-top: 15px;
-        cursor: pointer;
-        color: rgb(255, 255, 255);
-        border: 0;
-    }
-    
-    #P-Btn:hover {
-        transform: scale(1.05);
-    }
-    
-    #P-Btn2:hover {
-        transform: scale(1.05);
-    }
-    </style>
-</head>
-<body>
-    <title>Meu site HTML com BootStrap</title>
-    <h1>Desenvolvimento do meu site</h1>
-    <h2>Olá, este é o projeto SEM BootStrap</h2>
-    <p>Clique abaixo para iniciar a programação</p>
+import React, { useState, useEffect } from "react";
 
-    <button type= "button" class="btn btn-sucess" onclick="(funcao)">Clique aqui</button>
+// LojaFones - App.jsx
+// Requisitos: TailwindCSS no projeto para que as classes funcionem.
 
-    <script>
-    function funcao() {
-        src="scriptsite.js"
-    }
-    </script>
-    
-    <script src="scriptsite.js"></script>
-</body>
-</html>
+const PRODUCTS = [
+  {
+    id: 1,
+    name: "Fone Bluetooth X200",
+    type: "Bluetooth",
+    price: 249.9,
+    battery: "30h",
+    color: "Preto",
+    img: "https://via.placeholder.com/520x320?text=Fone+X200",
+    desc: "Som cristalino, cancelamento de ruído ativo e microfone integrado.",
+  },
+  {
+    id: 2,
+    name: "Gamer Bass Pro",
+    type: "Gamer",
+    price: 399.0,
+    battery: "20h",
+    color: "Preto/Vermelho",
+    img: "https://via.placeholder.com/520x320?text=Gamer+Bass+Pro",
+    desc: "Iluminação RGB, microfone destacável e drivers potentes para graves.",
+  },
+  {
+    id: 3,
+    name: "Sport Fit Ear",
+    type: "Esportivo",
+    price: 179.0,
+    battery: "12h",
+    color: "Branco",
+    img: "https://via.placeholder.com/520x320?text=Sport+Fit+Ear",
+    desc: "Leves, resistência à água IPX5 e encaixe firme para treinos.",
+  },
+  {
+    id: 4,
+    name: "Classic Wired",
+    type: "Com fio",
+    price: 59.9,
+    battery: "--",
+    color: "Azul",
+    img: "https://via.placeholder.com/520x320?text=Classic+Wired",
+    desc: "Fone com fio, leve e ótimo custo-benefício para uso diário.",
+  },
+];
+
+function currencyBRL(number) {
+  return number.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+}
+
+export default function App() {
+  const [products] = useState(PRODUCTS);
+  const [filter, setFilter] = useState("Todos");
+  const [cart, setCart] = useState([]);
+  const [query, setQuery] = useState("");
+  const [selected, setSelected] = useState(null);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("lojaFones_cart");
+    if (saved) setCart(JSON.parse(saved));
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("lojaFones_cart", JSON.stringify(cart));
+  }, [cart]);
+
+  function addToCart(product) {
+    setCart((prev) => {
+      const found = prev.find((p) => p.id === product.id);
+      if (found) return prev.map((p) => (p.id === product.id ? { ...p, qty: p.qty + 1 } : p));
+      return [...prev, { ...product, qty: 1 }];
+    });
+  }
+
+  function changeQty(productId, delta) {
+    setCart((prev) =>
+      prev
+        .map((p) => (p.id === productId ? { ...p, qty: Math.max(1, p.qty + delta) } : p))
+        .filter(Boolean)
+    );
+  }
+
+  function removeFromCart(productId) {
+    setCart((prev) => prev.filter((p) => p.id !== productId));
+  }
+
+  const total = cart.reduce((s, p) => s + p.price * p.qty, 0);
+
+  function openWhatsAppCheckout() {
+    if (cart.length === 0) return alert("Seu carrinho está vazio 😅");
+    const itemsText = cart
+      .map((p) => `${p.qty}x ${p.name} - ${currencyBRL(p.price)} cada`)
+      .join("\n");
+    const message = `Olá! Gostaria de fazer um pedido:\n${itemsText}\nTotal: ${currencyBRL(total)}`;
+    const encoded = encodeURIComponent(message);
+    // substitua o número abaixo pelo número do vendedor no formato internacional sem + (ex: 5511999999999)
+    const sellerNumber = "5511999999999";
+    window.open(`https://wa.me/${sellerNumber}?text=${encoded}`, "_blank");
+  }
+
+  function fakePixCheckout() {
+    alert(
+      "Checkout via Pix (simulado). Você pode gerar um QR Code PIX real integrando com provedores como Gerencianet, Mercado Pago ou Pagar.me. Total: " +
+        currencyBRL(total)
+    );
+  }
+
+  function filteredProducts() {
+    return products.filter((p) => (filter === "Todos" ? true : p.type === filter)).filter((p) =>
+      p.name.toLowerCase().includes(query.toLowerCase())
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50 text-gray-900">
+      <header className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-6">

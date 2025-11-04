@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LojaFones 🎧</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0; padding: 0;
+      background: #f7f7f7; color: #222;
+    }
+    header {
+      background: linear-gradient(90deg, #2563eb, #4f46e5);
+      color: white;
+      padding: 16px;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap;
+    }
+    header h1 { font-size: 1.5em; margin: 0; }
+    input {
+      padding: 6px 10px;
+      border-radius: 5px; border: none;
+    }
+    main { max-width: 1000px; margin: 20px auto; padding: 0 10px; }
+    .produtos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 20px;
+    }
+    .produto {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .produto img { width: 100%; border-radius: 10px; }
+    .produto button {
+      background: #4f46e5;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .produto button:hover { background: #3730a3; }
+
+    .carrinho {
+      margin-top: 30px;
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 0; border-bottom: 1px solid #ddd;
+    }
+    .item:last-child { border-bottom: none; }
+    .botoes { display: flex; gap: 5px; }
+    .botoes button {
+      border: none; border-radius: 4px; padding: 4px 8px;
+      cursor: pointer;
+    }
+    .menos { background: #ddd; }
+    .mais { background: #4f46e5; color: white; }
+    .remover { background: #dc2626; color: white; }
+    .checkout {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 15px;
+    }
+    .checkout button {
+      background: #22c55e; color: white; border: none;
+      padding: 10px 16px; border-radius: 6px; cursor: pointer;
+      font-size: 1em; font-weight: bold;
+    }
+    .checkout button:hover { background: #16a34a; }
+    footer {
+      text-align: center; padding: 20px; color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🎧 LojaFones</h1>
+    <input type="text" id="busca" placeholder="Buscar fone...">
+  </header>
+
+  <main>
+    <section class="produtos" id="produtos"></section>
+
+    <section class="carrinho" id="carrinho">
+      <h2>Carrinho</h2>
+      <div id="itens"></div>
+      <div class="checkout">
+        <strong id="total">Total: R$ 0,00</strong>
+        <button id="whatsappBtn">Finalizar pelo WhatsApp</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="ano"></span> LojaFones — Qualidade em som e conforto 🎧
+  </footer>
+
+  <script>
+    const produtos = [
+      {id:1, nome:'Fone Bluetooth X200', preco:249.90, tipo:'Bluetooth', img:'https://via.placeholder.com/300x200?text=Fone+X200'},
+      {id:2, nome:'Gamer Bass Pro', preco:399.00, tipo:'Gamer', img:'https://via.placeholder.com/300x200?text=Gamer+Bass+Pro'},
+      {id:3, nome:'Sport Fit Ear', preco:179.00, tipo:'Esportivo', img:'https://via.placeholder.com/300x200?text=Sport+Fit+Ear'},
+      {id:4, nome:'Classic Wired', preco:59.90, tipo:'Com fio', img:'https://via.placeholder.com/300x200?text=Classic+Wired'},
+    ];
+
+    const produtosDiv = document.getElementById('produtos');
+    const itensDiv = document.getElementById('itens');
+    const totalSpan = document.getElementById('total');
+    const buscaInput = document.getElementById('busca');
+    const whatsappBtn = document.getElementById('whatsappBtn');
+
+    let carrinho = JSON.parse(localStorage.getItem('carrinhoFones')) || [];
+
+    function salvarCarrinho() {
+      localStorage.setItem('carrinhoFones', JSON.stringify(carrinho));
+    }
+
+    function atualizarCarrinho() {
+      itensDiv.innerHTML = '';
+      let total = 0;
+      carrinho.f
